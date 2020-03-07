@@ -71,16 +71,11 @@ public class UpdateService {
                    // 写入新文件
                    out.write(image.getBytes());
                    out.flush();
+                   out.close();
                } catch (Exception e) {
                    e.printStackTrace();
-               } finally {
-                   try {
-                       out.close();
-                   } catch (IOException e) {
-                       e.printStackTrace();
-                   }
                }
-               return true;
+            return true;
            }
 
        return false;
