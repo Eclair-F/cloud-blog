@@ -13,6 +13,6 @@ import lombok.Data;
 @Data
 public class CommentInfo {
     private String id;
-    private String UserId;
+    private String userId;
     private String replyId;
 }

@@ -14,11 +14,14 @@ import java.util.List;
  **/
 @Data
 public class PageResult<T> {
-    private Long total;
+    private long total;
+    private int pageSize;
     private List<T> rows;
 
-    public PageResult(Long total, List<T> rows) {
+    public PageResult(long total, int pageSize,List<T> rows) {
         this.total = total;
+        this.pageSize=pageSize;
         this.rows = rows;
     }
 }
+

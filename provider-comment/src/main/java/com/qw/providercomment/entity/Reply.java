@@ -15,8 +15,13 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Reply {
     String id;
-    String userId;
-    String userNickname;
+    String fromId;
+    String from;
+    String avatar;
+    String to;
+    String toId;
     String content;
     String date;
+    boolean inputShow;
+
 }

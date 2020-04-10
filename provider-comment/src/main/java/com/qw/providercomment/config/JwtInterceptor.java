@@ -38,7 +38,6 @@ public class JwtInterceptor implements HandlerInterceptor {
                 }
             }
         }
-        System.out.println("经过user拦截器");
         return true;
     }
 

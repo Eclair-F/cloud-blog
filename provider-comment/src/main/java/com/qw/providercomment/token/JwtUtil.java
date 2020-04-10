@@ -22,8 +22,7 @@ public class JwtUtil {
                     .parseClaimsJwt(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
-            System.out.println("过期");
+            return null;
         }
-        return null;
     }
 }

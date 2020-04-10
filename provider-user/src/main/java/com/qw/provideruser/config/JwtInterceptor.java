@@ -26,6 +26,7 @@ public class JwtInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String authentication = request.getHeader("Authentication");
         if (authentication != null && !authentication.isEmpty()) {
+
             Claims claims = JwtUtil.jwtParseToken(authentication);
             if (claims != null && !claims.isEmpty()) {
                 String id =claims.getId();
@@ -35,6 +36,7 @@ public class JwtInterceptor implements HandlerInterceptor {
                 }
                 if (id != null) {
                     request.setAttribute("id", id);
+
                 }
             }
         }

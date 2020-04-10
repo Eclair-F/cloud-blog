@@ -1,26 +1,22 @@
 package com.qw.consumerexternal.feign;
 
+import com.qw.consumerexternal.feign.callback.EssayFeignCallback;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 
 /**
  * @author Eclair
  */
-@FeignClient(name = "provider-essay")
+@Service
+@FeignClient(name = "provider-essay",fallback = EssayFeignCallback.class)
 public interface EssayFeign {
-
     /**
      * 查找所有随笔
      */
     @GetMapping(value = "/")
-    Object essay() ;
-
-    /**
-     * 根据时间查找随笔
-     */
-    @GetMapping(value = "/date/{date}")
-    Object findByLGDate(@PathVariable String date);
+   Object essay();
 
     /**
      * 添加随笔

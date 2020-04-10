@@ -1,0 +1,70 @@
+#是否向服务注册中心注册自己
+#eureka.client.register-with-eureka=false
+#是否检索服务
+#eureka.client.fetch-registry=false
+
+
+
+eureka:
+  client:
+    service-url:
+      #服务注册中心的配置内容，指定服务注册中心的位置
+       defaultZone: http://localhost:8761/eureka/
+      #defaultZone: http://www.lvqiangwei.top:8761/eureka/
+  instance:
+    lease-expiration-duration-in-seconds: 20
+    lease-renewal-interval-in-seconds: 5
+    #服务注册中心实例的主机地址名称
+    hostname: server-gateway
+    #该实例注册到服务中心的唯一ID
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    #使用id作为hostname
+    prefer-ip-address: true
+server:
+  #服务注册中心端口号
+  port: 8601
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - filters:
+            - args:
+                #用于限流的键的解析器的 Bean 对象的名字
+                key-resolver: '#{@keyResolverConfig}'
+                #填充速度
+                redis-rate-limiter.replenishRate: 2
+                #令牌桶总容量
+                redis-rate-limiter.burstCapacity: 10
+              name: RequestRateLimiter
+          id: consumer-external
+          predicates:
+            - Path=/**
+          uri: lb://consumer-external
+    application:
+      #向服务注册中心注册的主机名
+      name: server-gateway
+
+
+  redis:
+    #访问地址
+    host: 127.0.0.1
+    ##注意，如果没有password，此处不设置值，但这一项要保留
+    password: Eclair
+    #访问端口
+    port: 6379
+
+
+##最大空闲数，数据库连接的最大空闲时间。超过空闲时间，数据库连接将被标记为不可用，然后被释放。设为0表示无限制。
+#spring.redis.maxIdle=300
+##连接池的最大数据库连接数。设为0表示无限制
+#spring.redis.maxActive=600
+##最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。 spring.
+#spring.redis.maxWait=1000
+
+

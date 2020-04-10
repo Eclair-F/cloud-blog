@@ -28,17 +28,13 @@ public class JwtInterceptor implements HandlerInterceptor {
         if (authentication != null && !authentication.isEmpty()) {
             Claims claims = JwtUtil.jwtParseToken(authentication);
             if (claims != null && !claims.isEmpty()) {
-                String id =  claims.getId();
                 String role = (String) claims.get("role");
                 if (role != null) {
                     request.setAttribute("role", role);
                 }
-                if (id != null) {
-                    request.setAttribute("id", id);
-                }
             }
         }
-        System.out.println("经过user拦截器");
+
         return true;
     }
 

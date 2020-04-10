@@ -15,7 +15,10 @@ public class Comment {
     private String blogId;
     private String content;
     private String userId;
-    private String userNickname;
+    private String nickname;
+    private String avatar;
     private String date;
+    private boolean inputShow;
+    private boolean replyShow;
     private List<Reply> replies;
 }

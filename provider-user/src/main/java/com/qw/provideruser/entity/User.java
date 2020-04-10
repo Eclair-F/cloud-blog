@@ -2,6 +2,9 @@ package com.qw.provideruser.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import org.springframework.data.annotation.Transient;
+
+import java.io.Serializable;
 
 
 /**
@@ -15,13 +18,17 @@ import lombok.Data;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Data
-public class User {
+public class User implements Serializable {
     private String id;
     private String username;
     private String password;
     private String nickname;
     private String role;
-    private String type;
+    private String sex;
+    private String email;
+    private String mobile;
     private String avatar;
     private String date;
+    @Transient
+    private String token;
 }
